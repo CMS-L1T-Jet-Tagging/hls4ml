@@ -15,6 +15,8 @@ void conv_1d_latency_cl(data_T data[CONFIG_T::in_width * CONFIG_T::n_chan],
     constexpr unsigned mult_n_in = CONFIG_T::filt_width * CONFIG_T::n_chan;
     constexpr unsigned mult_n_out = CONFIG_T::n_filt;
 
+    #pragma HLS PIPELINE
+
     data_T data_buf[CONFIG_T::n_pixels][mult_n_in];
     #pragma HLS ARRAY_PARTITION variable=data_buf complete dim=0
 
@@ -28,7 +30,7 @@ void conv_1d_latency_cl(data_T data[CONFIG_T::in_width * CONFIG_T::n_chan],
     #pragma HLS ARRAY_PARTITION variable=biases complete
 
     // Limit multipliers to control parallelization
-    #pragma HLS ALLOCATION operation instances=mul limit=CONFIG_T::mult_config::multiplier_limit
+    #pragma HLS ALLOCATION operation instances=mul limit=4096
 
 PartitionLoop:
     for (int i_part = 0; i_part < CONFIG_T::n_partitions; i_part++) {
