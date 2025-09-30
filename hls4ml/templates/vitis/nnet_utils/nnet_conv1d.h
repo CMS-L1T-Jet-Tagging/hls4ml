@@ -111,6 +111,7 @@ void conv_1d_cl(data_T data[CONFIG_T::in_width * CONFIG_T::n_chan], res_T res[CO
                     cast<data_T, res_T, typename CONFIG_T::mult_config>(acc[i_res]);
             }
         }
+    }
 }
 
 template <class data_T, class res_T, typename CONFIG_T>
@@ -195,6 +196,7 @@ void pointwise_conv_1d_cl(data_T data[CONFIG_T::in_width * CONFIG_T::n_chan],
                     cast<data_T, res_T, typename CONFIG_T::mult_config>(acc[i_res]);
             }
         }
+    }
 }
 
 template <class data_T, class res_T, typename CONFIG_T>
